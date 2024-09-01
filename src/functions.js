@@ -71,7 +71,7 @@ export function normalizeSelectValue(value) {
 export function generatePeriodSelectOptions(periods) {
     return periods.map((period) => {
         return {
-            value: period * SECONDS_IN_HOUR,
+            value: period * SECONDS_IN_MINUTES,
             label: generatePeriodSelectOptionsLabel(period)
         }
     })
