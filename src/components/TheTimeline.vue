@@ -1,77 +1,49 @@
 <template>
-  <div class="mt-7">
-    <ul>
-      <TimelineItem v-for=" timelineItem  in timelineItems" :key="timelineItem.hour" :timeline-item="timelineItem"
-                    :activity-select-options="activitySelectOptions" :activities="activities"
-                    @scroll-to-hour="scrollToHour"
-                    @select-activity="emit('setTimelineItemActivity',timelineItem,$event)" ref="timelineItemRefs"/>
-    </ul>
-  </div>
+  <li class="relative flex flex-col gap-2 border-t border-gray-200 py-10 px-4">
+    <TimelineHour
+        :hour="timelineItem.hour"
+        @click.prevent="emit('scrollToHour', timelineItem.hour)"
+    />
+    <BaseSelect
+        placeholder="Rest"
+        :selected="timelineItem.activityId"
+        :options="activitySelectOptions"
+        @select="selectActivity"
+    />
+    <TimelineStopwatch :timeline-item="timelineItem" />
+  </li>
 </template>
 
 
 <script setup>
-import TimelineItem from "../components/TimelineItem.vue"
-import {ref, watchPostEffect, nextTick} from "vue"
-import {
-  validateTimelineItems,
-  validateSelectOptions,
-  validateActivities,
-  isTimelineItemValid,
-  isActivityValid, isPageValid
-} from "../validators";
-import {MIDNIGHT_HOUR, PAGE_TIMELINE} from "../constants";
+import { inject } from 'vue'
+import { NULLABLE_ACTIVITY } from '../constants'
+import { isTimelineItemValid, isActivityValid, isHourValid } from '../validators'
+import BaseSelect from './BaseSelect.vue'
+import TimelineHour from './TimelineHour.vue'
+import TimelineStopwatch from './TimelineStopwatch.vue'
 
-const props = defineProps({
-  timelineItems: {
-    type: Object,
-    required: true,
-    validator: validateTimelineItems
-  },
-  activities: {
-    type: Array,
-    required: true,
-    validator: validateActivities
-  },
-  activitySelectOptions: {
+defineProps({
+  timelineItem: {
     required: true,
     type: Object,
-    validator: validateSelectOptions
-  },
-  currentPage: {
-    required: true,
-    type: String,
-    validator: isPageValid
+    validator: isTimelineItemValid
   }
 })
-defineExpose({ scrollToHour })
+
 const emit = defineEmits({
-  setTimelineItemActivity(timelineItem, activity) {
-    return [
-      isTimelineItemValid(timelineItem),
-      isActivityValid(activity)
-    ].every(Boolean)
-  }
+  selectActivity: isActivityValid,
+  scrollToHour: isHourValid
 })
 
-const timelineItemRefs = ref([])
+const activitySelectOptions = inject('activitySelectOptions')
+const activities = inject('activities')
 
-watchPostEffect(async () => {
-  if (props.currentPage === PAGE_TIMELINE) {
-    await nextTick()
-    scrollToHour(null, false)
-  }
+function selectActivity(id) {
+  emit('selectActivity', findActivityById(id))
+}
 
-})
-
-function scrollToHour(hour = null, isSmooth = true) {
-  hour ??= new Date().getHours()
-  const options = { behavior: isSmooth ? 'smooth' : 'instant' }
-
-  if (hour === MIDNIGHT_HOUR) {
-    document.body.scrollIntoView(options)
-  } else {
-    timelineItemRefs.value[hour - 1].$el.scrollIntoView(options)
-  }
+function findActivityById(id) {
+  return activities.find((activity) => activity.id === id) || NULLABLE_ACTIVITY
 }
 </script>

@@ -2,12 +2,21 @@
 
   <TheHeader @navigate="goTo($event)"/>
   <main class="flex flex-grow flex-col">
-    <TheTimeline v-show="currentPage == PAGE_TIMELINE" :timeline-items="timelineItems" ref="timeline"
-                 :activity-select-options="activitySelectOptions" :activities="activities"
-                 @set-timeline-item-activity="setTimelineItemActivity" :current-page="currentPage"/>
-    <TheActivities v-show="currentPage == PAGE_ACTIVITIES" :activities="activities" @delete-activity="deleteActivity"
-                   @create-activity="createActivity" @set-activity-second-to-complete="setActivitySecondToComplete"/>
-    <TheProgress v-show="currentPage == PAGE_PROGRESS"/>
+    <TheTimeline
+        v-show="currentPage === PAGE_TIMELINE"
+        :timeline-items="timelineItems"
+        :current-page="currentPage"
+        ref="timeline"
+        @set-timeline-item-activity="setTimelineItemActivity"
+    />
+    <TheActivities
+        v-show="currentPage === PAGE_ACTIVITIES"
+        :activities="activities"
+        @create-activity="createActivity"
+        @delete-activity="deleteActivity"
+        @set-activity-second-to-complete="setActivitySecondToComplete"
+    />
+    <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
 
   <TheNav :current-page="currentPage" @navigate="goTo($event)"/>
@@ -75,5 +84,7 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
   timelineItem.activitySeconds += activitySeconds
 }
 provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
+provide('activitySelectOptions', activitySelectOptions.value)
 provide('timelineItems', timelineItems.value)
+provide('activities', activities.value)
 </script>
