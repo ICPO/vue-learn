@@ -4,8 +4,8 @@
   <main class="flex flex-grow flex-col">
     <TheTimeline v-show="currentPage == PAGE_TIMELINE" :timeline-items="timelineItems" ref="timeline"
                  :activity-select-options="activitySelectOptions" :activities="activities"
-                 @set-timeline-item-activity="setTimelineItemActivity" :current-page="currentPage"/>
-    <TheActivities v-show="currentPage == PAGE_ACTIVITIES" :activities="activities" @delete-activity="deleteActivity"
+                 @set-timeline-item-activity="setTimelineItemActivity" :current-page="currentPage" @update-timeline-item-activity-seconds="updateTimelineItemActivitySeconds"/>
+    <TheActivities v-show="currentPage == PAGE_ACTIVITIES" :activities="activities" @delete-activity="deleteActivity"  :timeline-items="timelineItems"
                    @create-activity="createActivity" @set-activity-second-to-complete="setActivitySecondToComplete"/>
     <TheProgress v-show="currentPage == PAGE_PROGRESS"/>
   </main>
@@ -71,5 +71,9 @@ function setTimelineItemActivity(timelineItem, activity) {
 
 function setActivitySecondToComplete(activity, secondToComplete) {
   activity.secondToComplete = secondToComplete;
+}
+
+function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
+  timelineItem.activitySeconds += activitySeconds
 }
 </script>
