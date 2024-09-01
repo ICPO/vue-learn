@@ -57,7 +57,7 @@ export const NAV_ITEMS = {
 {value: 3 * SECONDS_IN_HOUR, label: '3:00'}
 ]*/
 
-export const NULLABLE_ACTIVITY = {id: null}
+// export const NULLABLE_ACTIVITY = {id: null}
 
 export const TYPE_CLASSES = {
     [BUTTON_NEUTRAL]: 'bg-gray-100 p-3 enabled:hover:bg-gray-200',

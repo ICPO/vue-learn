@@ -7,7 +7,6 @@
           :timeline-item="timelineItem"
           ref="timelineItemRefs"
           @scroll-to-hour="scrollToHour"
-          @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
       />
     </ul>
   </div>
@@ -38,14 +37,6 @@ const props = defineProps({
 })
 
 defineExpose({ scrollToHour })
-const emit = defineEmits({
-  setTimelineItemActivity(timelineItem, activity) {
-    return [
-      isTimelineItemValid(timelineItem),
-      isActivityValid(activity)
-    ].every(Boolean)
-  }
-})
 
 const timelineItemRefs = ref([])
 
