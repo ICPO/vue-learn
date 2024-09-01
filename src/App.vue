@@ -4,7 +4,7 @@
   <main class="flex flex-grow flex-col">
     <TheTimeline v-show="currentPage == PAGE_TIMELINE" :timeline-items="timelineItems" ref="timeline"
                  :activity-select-options="activitySelectOptions" :activities="activities"
-                 @set-timeline-item-activity="setTimelineItemActivity" :current-page="currentPage" @update-timeline-item-activity-seconds="updateTimelineItemActivitySeconds"/>
+                 @set-timeline-item-activity="setTimelineItemActivity" :current-page="currentPage"/>
     <TheActivities v-show="currentPage == PAGE_ACTIVITIES" :activities="activities" @delete-activity="deleteActivity"  :timeline-items="timelineItems"
                    @create-activity="createActivity" @set-activity-second-to-complete="setActivitySecondToComplete"/>
     <TheProgress v-show="currentPage == PAGE_PROGRESS"/>
@@ -19,7 +19,7 @@ import TheNav from './components/TheNav.vue'
 import TheTimeline from "./pages/TheTimeline.vue";
 import TheActivities from "./pages/TheActivities.vue";
 import TheProgress from "./pages/TheProgress.vue";
-import {computed} from "vue";
+import { ref, computed, provide } from 'vue'
 import {PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS} from './constants'
 import {
   generateTimelineItems,
@@ -27,8 +27,6 @@ import {
   generateActivitySelectOptions,
   generateActivities,
 } from './functions'
-
-import {ref} from "vue";
 
 const currentPage = ref(normalizePathHash());
 
@@ -76,4 +74,5 @@ function setActivitySecondToComplete(activity, secondToComplete) {
 function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
   timelineItem.activitySeconds += activitySeconds
 }
+provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 </script>

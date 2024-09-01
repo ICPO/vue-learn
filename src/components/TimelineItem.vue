@@ -4,11 +4,7 @@
     <BaseSelect :options="activitySelectOptions" placeholder="Rest" :selected="timelineItem.activityId"
                 @select="selectActivity"/>
 
-    <TimelineStopwatch
-        :seconds="timelineItem.activitySeconds"
-        :hour="timelineItem.hour"
-        @update-seconds="emit('updateActivitySeconds', $event)"
-    />
+    <TimelineStopwatch :timeline-item="timelineItem" />
   </li>
 </template>
 
@@ -22,8 +18,7 @@ import {
   isHourValid,
   isTimelineItemValid,
   validateActivities,
-  validateSelectOptions,
-  isNumber
+  validateSelectOptions
 } from "../validators";
 
 import {NULLABLE_ACTIVITY} from "../constants";
@@ -48,7 +43,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits({
-  updateActivitySeconds: isNumber,
   selectActivity: isActivityValid,
   scrollToHour: isHourValid
 });
