@@ -2,7 +2,7 @@
 
   <TheHeader @navigate="goTo($event)"/>
   <main class="flex flex-grow flex-col">
-    <TheTimeline v-show="currentPage == PAGE_TIMELINE" :timeline-items="timelineItems"
+    <TheTimeline v-show="currentPage == PAGE_TIMELINE" :timeline-items="timelineItems" ref="timeline"
                  :activity-select-options="activitySelectOptions" :activities="activities"
                  @set-timeline-item-activity="setTimelineItemActivity" :current-page="currentPage"/>
     <TheActivities v-show="currentPage == PAGE_ACTIVITIES" :activities="activities" @delete-activity="deleteActivity"
@@ -33,7 +33,13 @@ import {ref} from "vue";
 const currentPage = ref(normalizePathHash());
 
 function goTo(page) {
-  currentPage.value = page;
+  if (currentPage.value === PAGE_TIMELINE && page === PAGE_TIMELINE) {
+    timeline.value.scrollToHour()
+  }
+  if (page !== PAGE_TIMELINE) {
+    document.body.scrollIntoView()
+  }
+  currentPage.value = page
 }
 
 function deleteActivity(activity) {
@@ -53,7 +59,7 @@ function createActivity(activity) {
 const activities = ref(generateActivities())
 
 const timelineItems = ref(generateTimelineItems(activities.value));
-
+const timeline = ref()
 
 
 const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value));
