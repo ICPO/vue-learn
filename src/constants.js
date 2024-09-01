@@ -2,7 +2,7 @@
  * Импорт иконок
  */
 import {ChartBarIcon, ClockIcon, ListBulletIcon} from "@heroicons/vue/24/outline";
-import {generatePeriodSelectOptions} from "./functions";
+
 
 /**
  * Навигационные константы
@@ -50,14 +50,6 @@ export const NAV_ITEMS = {
     [PAGE_PROGRESS]: ChartBarIcon
 }
 
-const PERIODS = [
-    15, 30, 45, 60, 120, 150, 180, 210, 240, 270
-]
-
-/**
- * @type {({label: string, value: number}|{label: string, value: number}|{label: string, value: number})[]}
- */
-export const PERIOD_SELECT_OPTIONS = generatePeriodSelectOptions(PERIODS);
 
 /*[
 {value: 1 * SECONDS_IN_HOUR, label: '1:00'},

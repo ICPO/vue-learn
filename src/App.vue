@@ -35,6 +35,7 @@ import {
   normalizePathHash,
   generateActivitySelectOptions,
   generateActivities,
+  generatePeriodSelectOptions
 } from './functions'
 
 const currentPage = ref(normalizePathHash());
@@ -87,4 +88,5 @@ provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 provide('activitySelectOptions', activitySelectOptions.value)
 provide('timelineItems', timelineItems.value)
 provide('activities', activities.value)
+provide('periodSelectOptions', generatePeriodSelectOptions())
 </script>
