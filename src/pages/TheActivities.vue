@@ -3,7 +3,7 @@
     <ul v-if="activities.length" class="divide-y grow">
       <ActivityItem v-for="activity in activities" :key="activity.id" :activity="activity"
                     @delete="emit('deleteActivity',activity)"
-                    @set-second-to-complete="setSecondToComplete(activity,$event)" :timeline-items="timelineItems"/>
+                    @set-second-to-complete="setSecondToComplete(activity,$event)" />
     </ul>
     <div v-else class="grow">
       <img src="../assets/images/no-way.jpg" alt="no-way" class="m-auto">

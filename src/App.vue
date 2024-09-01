@@ -5,7 +5,7 @@
     <TheTimeline v-show="currentPage == PAGE_TIMELINE" :timeline-items="timelineItems" ref="timeline"
                  :activity-select-options="activitySelectOptions" :activities="activities"
                  @set-timeline-item-activity="setTimelineItemActivity" :current-page="currentPage"/>
-    <TheActivities v-show="currentPage == PAGE_ACTIVITIES" :activities="activities" @delete-activity="deleteActivity"  :timeline-items="timelineItems"
+    <TheActivities v-show="currentPage == PAGE_ACTIVITIES" :activities="activities" @delete-activity="deleteActivity"
                    @create-activity="createActivity" @set-activity-second-to-complete="setActivitySecondToComplete"/>
     <TheProgress v-show="currentPage == PAGE_PROGRESS"/>
   </main>
@@ -75,4 +75,5 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
   timelineItem.activitySeconds += activitySeconds
 }
 provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
+provide('timelineItems', timelineItems.value)
 </script>
