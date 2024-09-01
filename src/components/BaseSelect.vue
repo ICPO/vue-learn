@@ -1,10 +1,11 @@
 <template>
   <div class="flex gap-2">
-    <BaseButton @click="emit('select', null)">
+    <BaseButton :type="BUTTON_NEUTRAL" @click="select(null)">
       <XMarkIcon class="h-8"/>
     </BaseButton>
 
-    <select class="w-full truncate rounded bg-gray-100 py-1 px-2 text-2xl" @change="emit('select',+$event.target.value)">
+    <select class="w-full truncate rounded bg-gray-100 py-1 px-2 text-2xl"
+            @change="select($event.target.value)">
       <option :selected="isNotSelected" disabled value="">{{ placeholder }}</option>
       <option v-for="{value,label} in options" :key="value" :value="value" :selected="value == selected">
         {{ label }}
@@ -17,8 +18,10 @@
 <script setup>
 import {computed} from "vue"
 import BaseButton from "./BaseButton.vue";
-import { XMarkIcon } from "@heroicons/vue/24/solid"
-import { validateSelectOptions, isUndefinedOrNull, isNumberOrNull } from "../validators"
+import {XMarkIcon} from "@heroicons/vue/24/solid"
+import {validateSelectOptions, isUndefined, isSelectValueValid, isUndefinedOrNull} from "../validators"
+import {BUTTON_NEUTRAL} from "../constants"
+import {normalizeSelectValue} from "../functions"
 
 const props = defineProps({
   'options': {
@@ -31,12 +34,16 @@ const props = defineProps({
     type: String,
     default: "Rest"
   },
-  'selected': Number
+  'selected': [String, Number]
 })
 
 const emit = defineEmits({
-  select: isNumberOrNull
+  select: isSelectValueValid
 })
 
 const isNotSelected = computed(() => isUndefinedOrNull(props.selected))
+
+function select(value) {
+  emit('select', normalizeSelectValue(value))
+}
 </script>

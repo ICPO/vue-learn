@@ -1,4 +1,4 @@
-import {HOUR_IN_DAY, NAV_ITEMS, MIDNIGHT_HOUR} from "./constants";
+import {HOUR_IN_DAY, NAV_ITEMS, MIDNIGHT_HOUR, AVAILABLE_BUTTON, TYPE_CLASSES} from "./constants";
 
 /**
  * Есть ли такая "страница/алиас страницы/слаг" в константе типа объект NAV_ITEMS
@@ -8,6 +8,16 @@ import {HOUR_IN_DAY, NAV_ITEMS, MIDNIGHT_HOUR} from "./constants";
 export function isPageValid(page) {
     return Object.keys(NAV_ITEMS).includes(page)
 }
+
+/**
+ * Валидация типов кнопок
+ * @param type
+ * @returns {boolean}
+ */
+export function isButtonValid(type) {
+    return Object.keys(TYPE_CLASSES).includes(type);
+}
+
 
 /**
  * Удовлетворяет ли час условиям. Проверка доступна из вне в валидаторах
@@ -42,7 +52,7 @@ export function validateSelectOptions(options) {
  * @returns {boolean}
  */
 function isSelectOptionValid({value, label}) {
-    return isNumber(value) && isString(label)
+    return (isNumber(value) || isNotEmptyString(value)) && isString(label)
 }
 
 /**
@@ -63,6 +73,11 @@ export function isUndefinedOrNull(value) {
     return isUndefined(value) || isNull(value)
 }
 
+
+export function isSelectValueValid(value) {
+    return isNotEmptyString(value) || isNumberOrNull(value)
+}
+
 /**
  * Число или Null. Проверка доступна из вне в валидаторах
  * @param value
@@ -77,7 +92,7 @@ export function isNumberOrNull(value) {
  * @param value
  * @returns {boolean}
  */
-function isNull(value) {
+export function isNull(value) {
     return value === null
 }
 
@@ -86,7 +101,7 @@ function isNull(value) {
  * @param value
  * @returns {boolean}
  */
-function isUndefined(value) {
+export function isUndefined(value) {
     return value === undefined
 }
 
@@ -96,7 +111,7 @@ function isUndefined(value) {
  * @param value
  * @returns {boolean}
  */
-function isNumber(value) {
+export function isNumber(value) {
     return typeof value === "number"
 }
 
@@ -123,8 +138,16 @@ function isBetween(value, start, end) {
  * @param activity
  * @returns {*}
  */
-export function isActivityValid(activity) {
-    return isNotEmptyString(activity)
+export function isActivityValid({id, name, secondToComplete}) {
+
+    if (isNull(id)) {
+        return true;
+    }
+    return [
+        isNotEmptyString(id),
+        isNotEmptyString(name),
+        isNumber(secondToComplete),
+    ].every(Boolean)
 }
 
 /**
@@ -144,3 +167,4 @@ export function isNotEmptyString(value) {
 export function validateActivities(activities) {
     return activities.every(isActivityValid)
 }
+

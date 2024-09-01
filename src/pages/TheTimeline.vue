@@ -3,5 +3,9 @@
 </template>
 <script setup>
 import TheTimeline from "../components/TheTimeline.vue"
-
+defineProps({
+  timelineItems: {
+    type: Object
+  }
+})
 </script>
