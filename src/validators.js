@@ -6,7 +6,11 @@ import {HOUR_IN_DAY, NAV_ITEMS, MIDNIGHT_HOUR, AVAILABLE_BUTTON, TYPE_CLASSES} f
  * @returns {boolean}
  */
 export function isPageValid(page) {
-    return Object.keys(NAV_ITEMS).includes(page)
+    return NAV_ITEMS.some(navItem => navItem.page === page)
+}
+
+export function isNavItemValid(navItem) {
+    return NAV_ITEMS.includes(navItem)
 }
 
 /**

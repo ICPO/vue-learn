@@ -9,7 +9,7 @@
     <div class="flex gap-2">
       <BaseSelect class="grow font-mono" placeholder="h:mm" :options="periodSelectOptions"
                   :selected="activity.secondToComplete || null"
-                  @select="setActivitySecondToComplete(activity, $event || 0)"/>
+                  @select="setActivitySecondToComplete(activity, $event)"/>
       <ActivitySecondToComplete v-if="activity.secondToComplete" :activity="activity"/>
 
     </div>
@@ -24,6 +24,7 @@ import {TrashIcon} from "@heroicons/vue/24/outline"
 import {BUTTON_DANGER} from "../constants"
 import ActivitySecondToComplete from './ActivitySecondToComplete.vue'
 import {isActivityValid} from '../validators'
+import { setActivitySecondToCompleteKey, periodSelectOptionsKey, deleteActivityKey } from '../keys'
 
 defineProps({
   activity: {
@@ -32,7 +33,7 @@ defineProps({
     validator: isActivityValid
   }
 })
-const setActivitySecondToComplete = inject('setActivitySecondToComplete')
-const periodSelectOptions = inject('periodSelectOptions')
-const deleteActivity = inject('deleteActivity')
+const setActivitySecondToComplete = inject(setActivitySecondToCompleteKey)
+const periodSelectOptions = inject(periodSelectOptionsKey)
+const deleteActivity = inject(deleteActivityKey)
 </script>

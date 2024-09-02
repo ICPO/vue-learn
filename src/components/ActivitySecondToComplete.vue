@@ -4,9 +4,11 @@
 </template>
 
 <script setup>
-import { computed,inject } from 'vue'
-import { formatSeconds, getTotalActivitySeconds } from '../functions'
-import { isActivityValid } from '../validators'
+import {computed, inject} from 'vue'
+import {formatSeconds, getTotalActivitySeconds} from '../functions'
+import {isActivityValid} from '../validators'
+import {timelineItemsKey} from '../keys'
+
 const props = defineProps({
   activity: {
     required: true,
@@ -14,7 +16,7 @@ const props = defineProps({
     validator: isActivityValid
   }
 })
-const timelineItems = inject('timelineItems')
+const timelineItems = inject(timelineItemsKey)
 const classes = computed(
     () =>
         `flex items-center rounded bg-purple-100 px-2 font-mono text-xl text-purple-600 ${colorClasses.value}`

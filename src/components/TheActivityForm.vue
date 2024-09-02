@@ -14,10 +14,11 @@ import {ref, nextTick, inject} from "vue"
 import {PlusIcon} from "@heroicons/vue/24/outline"
 import {isActivityValid} from "../validators";
 import {id} from "../functions";
+import {createActivityKey} from '../keys'
 
 const name = ref('')
 
-const createActivity = inject('createActivity')
+const createActivity = inject(createActivityKey)
 
 async function submit() {
   reateActivity({

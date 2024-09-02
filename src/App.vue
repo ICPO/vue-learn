@@ -15,12 +15,13 @@
 </template>
 
 <script setup>
+import * as keys from './keys'
 import TheHeader from './components/TheHeader.vue'
 import TheNav from './components/TheNav.vue'
 import TheTimeline from "./pages/TheTimeline.vue";
 import TheActivities from "./pages/TheActivities.vue";
 import TheProgress from "./pages/TheProgress.vue";
-import { ref, computed, provide } from 'vue'
+import { ref, computed, provide, readonly } from 'vue'
 import {PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS} from './constants'
 import {
   generateTimelineItems,
@@ -29,6 +30,7 @@ import {
   generatePeriodSelectOptions
 } from './functions'
 import { currentPage, timelineRef } from './router'
+
 
 function deleteActivity(activity) {
   timelineItems.value.forEach((timelineItem) => {
@@ -57,19 +59,19 @@ function setTimelineItemActivity(timelineItem, activityId) {
 }
 
 function setActivitySecondToComplete(activity, secondToComplete) {
-  activity.secondToComplete = secondToComplete;
+  activity.secondToComplete = secondToComplete || 0;
 }
 
 function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
   timelineItem.activitySeconds += activitySeconds
 }
-provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
-provide('activitySelectOptions', activitySelectOptions.value)
-provide('timelineItems', timelineItems.value)
+provide(keys.updateTimelineItemActivitySecondsKey, updateTimelineItemActivitySeconds)
+provide(keys.activitySelectOptionsKey, readonly(activitySelectOptions.value))
+provide(keys.timelineItemsKey, readonly(timelineItems.value))
 // provide('activities', activities.value)
-provide('periodSelectOptions', generatePeriodSelectOptions())
-provide('setTimelineItemActivity', setTimelineItemActivity)
-provide('setActivitySecondToComplete', setActivitySecondToComplete)
-provide('createActivity', createActivity)
-provide('deleteActivity', deleteActivity)
+provide(keys.periodSelectOptionsKey, readonly(generatePeriodSelectOptions()))
+provide(keys.setTimelineItemActivityKey, setTimelineItemActivity)
+provide(keys.setActivitySecondToCompleteKey, setActivitySecondToComplete)
+provide(keys.createActivityKey, createActivity)
+provide(keys.deleteActivityKey, deleteActivity)
 </script>
