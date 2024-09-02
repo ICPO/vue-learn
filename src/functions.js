@@ -2,7 +2,6 @@
  * Импорт констант
  */
 import {
-    PAGE_TIMELINE,
     HOUR_IN_DAY,
     MIDNIGHT_HOUR,
     SECONDS_IN_HOUR,
@@ -13,21 +12,8 @@ import {
 /**
  * Импорт функции из валидаторов
  */
-import {isPageValid, isNull} from "./validators";
+import {isNull} from "./validators";
 
-/**
- * Функция получения хеша, либо выдача ему дефолтного значения
- * @returns {string}
- */
-export function normalizePathHash() {
-    const page = window.location.hash.slice(1);
-    if (isPageValid(page)) {
-        return page;
-    }
-
-    window.location.hash = PAGE_TIMELINE;
-    return PAGE_TIMELINE;
-}
 
 export function generateActivities() {
 
