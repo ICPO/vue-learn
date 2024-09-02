@@ -2,7 +2,7 @@
  * Импорт иконок
  */
 import {ChartBarIcon, ClockIcon, ListBulletIcon} from "@heroicons/vue/24/outline";
-
+import {generatePeriodSelectOptions} from './functions'
 
 /**
  * Навигационные константы
@@ -23,6 +23,8 @@ export const MINUTES_IN_HOUR = 60;
 export const SECONDS_IN_MINUTES = 60;
 export const MILLISECONDS_IN_SECONDS = 1000;
 
+
+export const PERIOD_SELECT_OPTIONS = generatePeriodSelectOptions()
 
 /**
  * Константы кнопок

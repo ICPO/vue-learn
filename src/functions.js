@@ -2,49 +2,15 @@
  * Импорт констант
  */
 import {
-    HOUR_IN_DAY,
-    MIDNIGHT_HOUR,
-    SECONDS_IN_HOUR,
     MINUTES_IN_HOUR,
-    MILLISECONDS_IN_SECONDS, SECONDS_IN_MINUTES
+    MILLISECONDS_IN_SECONDS,
+    SECONDS_IN_MINUTES
 } from "./constants";
 
 /**
  * Импорт функции из валидаторов
  */
 import {isNull} from "./validators";
-
-
-export function generateActivities() {
-
-    return ['Coding', 'Training', 'Reading'].map((name, hours) => ({
-        id: id(),
-        name: name,
-        secondToComplete: hours * SECONDS_IN_HOUR
-    }))
-}
-
-/**
- * Просто генерация массива с временем
- * @returns {[]}
- */
-export function generateTimelineItems(activities) {
-
-    return [...Array(HOUR_IN_DAY).keys()].map((hour) => ({
-        hour,
-        activityId: [0, 1, 2, 3, 4].includes(hour) ? activities[hour % 3].id : null,
-        activitySeconds: [0, 1, 2, 3, 4].includes(hour) ? hour * 600 : 0
-    }))
-
-}
-
-
-export function generateActivitySelectOptions(activities) {
-    return activities.map((activity) => ({
-        id: activity.id, value: activity.id, label: activity.name
-    }))
-}
-
 
 export function id() {
     return Date.now().toString(36) + Math.random().toString(36).substring(2)
@@ -81,12 +47,6 @@ export function formatSeconds(seconds) {
 
     const utc = date.toUTCString();
     return utc.substring(utc.indexOf(':') - 2, utc.indexOf(':') + 6);
-}
-
-export function getTotalActivitySeconds(activity, timelineItems) {
-    return timelineItems
-        .filter((timelineItem) => timelineItem.activityId === activity.id)
-        .reduce((totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds), 0)
 }
 
 export function currentHour() {
