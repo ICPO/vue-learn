@@ -1,8 +1,5 @@
-/**
- * Импорт иконок
- */
-import {ChartBarIcon, ClockIcon, ListBulletIcon} from "@heroicons/vue/24/outline";
 import {generatePeriodSelectOptions} from './functions'
+import {ICON_CLOCK, ICON_LIST_BULLET, ICON_CHART_BAR} from './icons'
 
 /**
  * Навигационные константы
@@ -12,15 +9,20 @@ export const PAGE_TIMELINE = 'timeline'
 export const PAGE_ACTIVITIES = 'activities'
 export const PAGE_PROGRESS = 'progress'
 
+
+export const HUNDRED_PERCENT = 100
+export const LOW_PERCENT = 33
+export const MEDIUM_PERCENT = 66
 /**
  * Константы полночи и кол-ва часов в сутках
  * @type {number}
  */
 export const HOUR_IN_DAY = 24;
-export const MIDNIGHT_HOUR = 0;
-export const SECONDS_IN_HOUR = 3600;
-export const MINUTES_IN_HOUR = 60;
 export const SECONDS_IN_MINUTES = 60;
+export const MIDNIGHT_HOUR = 0;
+export const MINUTES_IN_HOUR = 60;
+export const SECONDS_IN_HOUR = SECONDS_IN_MINUTES * MINUTES_IN_HOUR
+export const SECONDS_IN_DAY = HOUR_IN_DAY * SECONDS_IN_HOUR
 export const MILLISECONDS_IN_SECONDS = 1000;
 
 
@@ -49,15 +51,15 @@ export const AVAILABLE_BUTTON = [
 export const NAV_ITEMS = [
     {
         page: PAGE_TIMELINE,
-        icon: ClockIcon
+        icon: ICON_CLOCK
     },
     {
         page: PAGE_ACTIVITIES,
-        icon: ListBulletIcon
+        icon: ICON_LIST_BULLET
     },
     {
         page: PAGE_PROGRESS,
-        icon: ChartBarIcon
+        icon: ICON_CHART_BAR
     }
 ]
 

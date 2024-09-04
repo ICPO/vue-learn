@@ -1,7 +1,7 @@
 <template>
   <div class="flex gap-2">
     <BaseButton :type="BUTTON_NEUTRAL" @click="select(null)">
-      <XMarkIcon class="h-8"/>
+      <BaseIcon :name="ICON_X_MARK"/>
     </BaseButton>
 
     <select class="w-full truncate rounded bg-gray-100 py-1 px-2 text-2xl"
@@ -18,7 +18,8 @@
 <script setup>
 import {computed} from "vue"
 import BaseButton from "./BaseButton.vue";
-import {XMarkIcon} from "@heroicons/vue/24/solid"
+import BaseIcon from "./BaseIcon.vue";
+import {ICON_X_MARK} from '../icons'
 import {validateSelectOptions, isUndefined, isSelectValueValid, isUndefinedOrNull} from "../validators"
 import {BUTTON_NEUTRAL} from "../constants"
 import {normalizeSelectValue} from "../functions"

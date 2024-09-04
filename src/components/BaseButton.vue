@@ -18,7 +18,7 @@ const props = defineProps({
     default: BUTTON_PRIMARY
   }
 })
-const classes = `${
-    TYPE_CLASSES[props.type]
-} rounded p-3 disabled:cursor-not-allowed disabled:opacity-50`
+const classes = [
+  'rounded p-3 disabled:cursor-not-allowed disabled:opacity-50', TYPE_CLASSES[props.type]
+]
 </script>

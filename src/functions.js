@@ -2,10 +2,21 @@
  * Импорт констант
  */
 import {
+    HUNDRED_PERCENT,
+    MEDIUM_PERCENT,
+    LOW_PERCENT,
     MINUTES_IN_HOUR,
     MILLISECONDS_IN_SECONDS,
     SECONDS_IN_MINUTES
 } from "./constants";
+
+export function getProgressColorClass(percentage) {
+    if (percentage < LOW_PERCENT) return 'bg-red-500'
+    if (percentage < MEDIUM_PERCENT) return 'bg-yellow-500'
+    if (percentage < HUNDRED_PERCENT) return 'bg-blue-500'
+
+    return 'bg-green-500'
+}
 
 /**
  * Импорт функции из валидаторов
@@ -51,4 +62,8 @@ export function formatSeconds(seconds) {
 
 export function currentHour() {
     return new Date().getHours()
+}
+
+export function formatSecondsWithSign(seconds) {
+    return `${seconds >= 0 ? '+' : '-'}${formatSeconds(seconds)}`
 }

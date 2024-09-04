@@ -1,4 +1,5 @@
 import {HOUR_IN_DAY, NAV_ITEMS, MIDNIGHT_HOUR, AVAILABLE_BUTTON, TYPE_CLASSES} from "./constants";
+import {ICONS} from './icons'
 
 /**
  * Есть ли такая "страница/алиас страницы/слаг" в константе типа объект NAV_ITEMS
@@ -6,7 +7,11 @@ import {HOUR_IN_DAY, NAV_ITEMS, MIDNIGHT_HOUR, AVAILABLE_BUTTON, TYPE_CLASSES} f
  * @returns {boolean}
  */
 export function isPageValid(page) {
-    return NAV_ITEMS.some(navItem => navItem.page === page)
+    return NAV_ITEMS.some((navItem) => navItem.page === page)
+}
+
+export function isIconValid(icon) {
+    return Object.keys(ICONS).includes(icon)
 }
 
 export function isNavItemValid(navItem) {
@@ -147,11 +152,7 @@ export function isActivityValid({id, name, secondToComplete}) {
     if (isNull(id)) {
         return true;
     }
-    return [
-        isNotEmptyString(id),
-        isNotEmptyString(name),
-        isNumber(secondToComplete),
-    ].every(Boolean)
+    return [isNotEmptyString(id), isNotEmptyString(name), isNumber(secondToComplete)].every(Boolean)
 }
 
 /**
@@ -159,7 +160,7 @@ export function isActivityValid({id, name, secondToComplete}) {
  * @param value
  * @returns {boolean}
  */
-export function isNotEmptyString(value) {
+function isNotEmptyString(value) {
     return isString(value) && value.length > 0
 }
 

@@ -1,3 +1,11 @@
 <template>
-<h1>test 3</h1>
+  <ul class="divide-y" v-if="trackedActivities.length">
+    <ProgressItem v-for="activity in trackedActivities" :key="activity.id" :activity="activity"/>
+  </ul>
+  <TheProgressEmptyState v-else />
 </template>
+<script setup>
+import {trackedActivities} from '../activities'
+import ProgressItem from '../components/ProgressItem.vue'
+import TheProgressEmptyState from '../components/TheProgressEmptyState.vue'
+</script>
