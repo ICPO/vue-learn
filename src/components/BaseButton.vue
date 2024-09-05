@@ -4,7 +4,7 @@
   </button>
 </template>
 <script>
-import {BUTTON_NEUTRAL, TYPE_CLASSES} from "../constants"
+import {TYPE_CLASSES} from "../constants"
 </script>
 
 <script setup>

@@ -20,7 +20,7 @@ import {computed} from "vue"
 import BaseButton from "./BaseButton.vue";
 import BaseIcon from "./BaseIcon.vue";
 import {ICON_X_MARK} from '../icons'
-import {validateSelectOptions, isUndefined, isSelectValueValid, isUndefinedOrNull} from "../validators"
+import {validateSelectOptions, isSelectValueValid, isUndefinedOrNull} from "../validators"
 import {BUTTON_NEUTRAL} from "../constants"
 import {normalizeSelectValue} from "../functions"
 

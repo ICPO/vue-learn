@@ -9,7 +9,7 @@ export const PAGE_TIMELINE = 'timeline'
 export const PAGE_ACTIVITIES = 'activities'
 export const PAGE_PROGRESS = 'progress'
 
-
+export const APP_NAME = 'ontrack'
 export const HUNDRED_PERCENT = 100
 export const LOW_PERCENT = 33
 export const MEDIUM_PERCENT = 66

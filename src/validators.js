@@ -66,15 +66,6 @@ function isSelectOptionValid({value, label}) {
 
 /**
  * Undefined или Null. Проверка доступна из вне в валидаторах
- * @param timelineItems
- * @returns {boolean}
- */
-export function validateTimelineItems(timelineItems) {
-    return timelineItems.every(isTimelineItemValid)
-}
-
-/**
- * Undefined или Null. Проверка доступна из вне в валидаторах
  * @param value
  * @returns {boolean}
  */
@@ -88,15 +79,6 @@ export function isSelectValueValid(value) {
 }
 
 /**
- * Число или Null. Проверка доступна из вне в валидаторах
- * @param value
- * @returns {boolean}
- */
-export function isNumberOrNull(value) {
-    return isNumber(value) || isNull(value)
-}
-
-/**
  * Является ли Null
  * @param value
  * @returns {boolean}
@@ -105,12 +87,11 @@ export function isNull(value) {
     return value === null
 }
 
-/**
- * Является ли типом undefined
- * @param value
- * @returns {boolean}
- */
-export function isUndefined(value) {
+function isNumberOrNull(value) {
+    return isNumber(value) || isNull(value)
+}
+
+function isUndefined(value) {
     return value === undefined
 }
 
@@ -120,7 +101,7 @@ export function isUndefined(value) {
  * @param value
  * @returns {boolean}
  */
-export function isNumber(value) {
+function isNumber(value) {
     return typeof value === "number"
 }
 
@@ -163,13 +144,3 @@ export function isActivityValid({id, name, secondToComplete}) {
 function isNotEmptyString(value) {
     return isString(value) && value.length > 0
 }
-
-/**
- * Валидация всех активностей. Проверка доступна из вне в валидаторах
- * @param activities
- * @returns {boolean}
- */
-export function validateActivities(activities) {
-    return activities.every(isActivityValid)
-}
-
